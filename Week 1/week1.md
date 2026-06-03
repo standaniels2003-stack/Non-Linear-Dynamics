@@ -1,3 +1,10 @@
+# Coursework Submission: Non-Linear Dynamics, Chaos and Aplications Week 1
+**Name:** Stan Daniels. 
+
+**Student Number:** S1116231
+
+## Code:
+```python
 # ==================================================================
 # EXCERSISES WEEK 1 (2.8.3, 2.8.4)
 # ==================================================================
@@ -182,3 +189,8 @@ if __name__ == "__main__":
     
     sim_euler.plot_and_save(dts_e, errors_e)
     sim_improved_euler.plot_and_save(dts_ie, errors_ie)
+```
+
+## Results:
+![Euler Plot](plots/error_analysis_euler.png)
+![Euler Plot](plots/error_analysis_improved_euler.png)

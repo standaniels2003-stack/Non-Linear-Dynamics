@@ -1,0 +1,333 @@
+% !TEX root = ./your_filename.tex
+\documentclass[reprint,amsmath,amssymb,aps, floatfix]{revtex4-2}
+
+% ===================================================================
+% ---------- Packages ----------
+% ===================================================================
+\usepackage{graphicx}          
+\usepackage{pgfplots}          
+\pgfplotsset{compat=1.18}      
+\usepgfplotslibrary{colorbrewer}
+\usepackage{booktabs}          
+\usepackage{hyperref}          
+\usepackage{cleveref}
+\usepackage{caption}           
+\usepackage{algorithm}         
+\usepackage{algpseudocode}     
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, calc, angles, quotes, patterns, shapes.geometric, shadows}
+\usepackage{tikz-3dplot}
+\usepackage{subcaption}
+\usepackage{microtype}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{newtxtext}
+\usepackage{newtxmath}
+
+\usepackage[titles]{tocloft}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsubsecleader}{\cftdotfill{\cftdotsep}}
+
+% ===================================================================
+% ---------- Title page ----------
+% ===================================================================
+
+\begin{document}
+\raggedbottom
+
+\title{Nonlinear Dynamics, Phase-Locking, and Collective Synchronization in Spin Torque Oscillators}
+\author{Student Number: s1116231}
+\affiliation{Faculty of Science, Radboud Universiteit}
+\date{\today}
+
+\begin{abstract}
+
+\end{abstract}
+
+\maketitle
+
+\begin{widetext}
+    \newpage
+    \tableofcontents
+    \newpage
+\end{widetext}
+
+% ===================================================================
+% ---------- Introduction ----------
+% ===================================================================
+\section{Introduction}
+
+% ===================================================================
+% ---------- Methods ----------
+% ===================================================================
+\section{Methods}
+
+% ===================================================================
+% ---------- Analytical Analysis ----------
+% ===================================================================
+\section{Analytical Analysis}
+\subsection{Motivation of the LLGS Equation and Effective Field Components}
+The fundamental equation governing the magnetization dynamics of an STO is the Landau-Lifshitz-Gilbert-Slonczewski (LLGS) equation:
+\begin{equation}
+    \frac{d\mathbf{m}}{dt} = -\left|\gamma\right|\mathbf{m} \times \mathbf{H}_{\text{eff}} + \alpha \mathbf{m} \times \frac{d\mathbf{m}}{dt} + \left|\gamma\right|\beta \mathbf{J} \left[ \mathbf{m} \times \left(\mathbf{m}\times\mathbf{M}\right) \right]
+\end{equation}
+Here $\gamma = 1.9 \times 10^{11}\text{Hz/T}$ is the gyromagnetic ratio, $\alpha = 10^{-2}$ is the Gilbert damping parameter and $\beta = 10\text{/}3$ represents material parameter and fundamental constants.
+$\mathbf{J}$ is the current flowing from the fixed to the free layer.
+
+The first term in the LLGS equation is the larmor presession:
+\begin{equation}
+    -\left|\gamma\right|\mathbf{m} \times \mathbf{H}_{\text{eff}}
+\end{equation}
+This term describes how the magnetization rotates around a local effecit field $\mathbf{H}_{\text{eff}}$.
+Because of the cross product ($\mathbf{m} \times \mathbf{H}_{\text{eff}}$), the resulting torque vector is pointing perpendicular toboth the magnetiation $\mathbf{m}$ and the field $\mathbf{H}_{\text{eff}}$.
+This term is conservative, it does not change the angle between  $\mathbf{m}$ and $\mathbf{H}_{\text{eff}}$, meaning it causes a perpetual, circular rotation around the field vector without losing energy.
+The speed of this rotation is determined by $\left|\gamma\right|$.
+
+The second term is the Gilbert damping described by:
+\begin{equation}
+    \alpha \mathbf{m} \times \frac{d\mathbf{m}}{dt}
+\end{equation}
+In reality, a magnetic system cannot precess forever as it loses energy to its environment.
+This enegry relaxation is captured by the dimensionless Gilbert damping parameter $\alpha$.
+This term takes the cross product of the magnetization with its own velocity ($\mathbf{m}\times\dot{\mathbf{m}}$) which creates a torque vector pointing directly inward towards the direction of $\mathbf{H}_{\text{eff}}$.
+This drags the magnetization vecotr down forcing it to spiral tightly until it aligns completely parallel with the lowest energy state along $\mathbf{H}_{\text{eff}}$.
+
+The last term in the LLGS equation is the addition discovered by John Slonczweski in 1996 \cite{SLONCZEWSKI1996L1}:
+\begin{equation}
+    \left|\gamma\right|\beta \mathbf{J} \left[ \mathbf{m} \times \left(\mathbf{m}\times\mathbf{M}\right) \right]
+\end{equation}
+When an electrical current $\mathbf{J}$ passes through a fixed, thick magnetic layer $\mathbf{M}$, the electrons traveling through it become "spin-polarized"—meaning their quantum spins line up with $\mathbf{M}$.
+When these polarized electrons enter the dynamic free layer $\mathbf{m}$, they crash into its local magnetic moments and transfer their physical angular momentum to it.
+Depending on the direction of $\mathbf{J}$, this generated torque vector can point in the exact opposite derection on the Gilbert damping term and thus acts like an anti-damping mechanism.
+
+An important factor in the LLGS equation if the effective magnetic field $\mathbf{H}_{\text{eff}}$ which consists of the external magnetic field $\text{H}_\text{a} = 0.2$ along the x-axis, a anistropy field $\text{H}_\text{k} = 0.05$ also along the x-axis and a demagnetization field $\text{H}_\text{dz} = 4\pi \text{/} \mu_0 \text{M}_\text{s} = 1.6$ along the z-axis, where $\text{M}_\text{s}$ is the saturation magnetization of the free layer.
+The effective magnetic field is expressed as:
+\begin{equation}
+    \mathbf{H}_{\text{eff}} = \text{H}_{\text{a}}\hat{\mathbf{e}}_{\text{x}}+\text{H}_{\text{k}}\text{m}_{\text{x}}\hat{\mathbf{e}}_{\text{x}}-\text{H}_{\text{dz}}\text{m}_{\text{z}}\hat{\mathbf{e}}_{\text{z}}
+\end{equation}
+
+\subsection{Coordinate Transformation and Dimensional Reduction}
+To analytically solve the trajectory of the magnetization vector $\mathbf{m}$ the three-dimensional Cartesian system must be mapped onto a spherical coordinate system.
+Because $\mathbf{m}$ is a unit vector ($\left|\mathbf{m}\right|=1$), the state space is restricted to the surface of a three-dimensional unit sphere.
+A sphere is a two-dimensional manifold, consequently the position of $\mathbf{m}$ can therefore be defined using only two independent anular degrees of freedom, the polar angle $0\leq\theta\leq\pi$ and the azimuthal angle $0\leq\phi\leq 2\pi$.
+
+The exact algebraic transformation mapping the Cartesian components into the independent coordinate pair $(\theta, \phi)$ is defined as:
+\begin{align}
+m_x &= \sin\theta\cos\phi \\
+m_y &= \sin\theta\sin\phi \\
+m_z &= \cos\theta
+\end{align}
+Through this geometric mapping, the dynamic problem is reduced from three coupled Cartesian differential equations down to a 2D planar phase space spanned entirely by $\theta$ and $\phi$.
+
+In order to describe the LLGS equation onto this 2D surface, we define a new orthonormal basis $\left\{\mathbf{m}, \hat{\mathbf{e}}_{\theta}, \hat{\mathbf{e}}_{\phi}\right\}$, the unit tangent vectors, fully derived in \autoref{equ:etheta} and \autoref{equ:ephi}, are defined as:
+\begin{equation}
+\hat{\mathbf{e}}_{\theta} = \frac{\partial \mathbf{m} / \partial \theta}{|\partial \mathbf{m} / \partial \theta|} = \begin{pmatrix} \cos\theta\cos\phi \\ \cos\theta\sin\phi \\ -\sin\theta \end{pmatrix}
+\end{equation}
+\begin{equation}
+\hat{\mathbf{e}}_{\phi} = \frac{\partial \mathbf{m} / \partial \phi}{|\partial \mathbf{m} / \partial \phi|} = \begin{pmatrix} -\sin\phi \\ \cos\phi \\ 0 \end{pmatrix}
+\end{equation}
+
+By applying the multivariate chain rule to the time-dependent state vector $\mathbf{m}(\theta(t), \phi(t))$, the total time derivative (velocity) of the magnetization is cleanly resolved into the local spherical basis as:
+\begin{equation}
+\frac{d\mathbf{m}}{dt} = \frac{d\theta}{dt}\hat{\mathbf{e}}_{\theta} + \frac{d\phi}{dt}\sin\theta\hat{\mathbf{e}}_{\phi}
+\label{equ:angular_form}
+\end{equation}
+where $\frac{d\theta}{dt}$ and $\frac{d\phi}{dt}$ represent the real-time scalar angular velocities, the full derivation can be found in \autoref{equ:dm/dt}
+
+\subsection{Converting the LLGS Equation from Implicit to Explicit}
+In order to anaylize the LLGS equation the implicit form, with $d\mathbf{m}/dt$ on both sides, has to be converted to an explicit notation, with $d\mathbf{m}/dt$ on one sides.
+To convert this we first take $\mathbf{m}\times d\mathbf{m}/dt$, which is fully derived in \autoref{equ:mxdm/dt} and takes on the form:
+\begin{equation}
+   \mathbf{m}\times \frac{d\mathbf{m}}{dt}=-\left|\gamma\right|\mathbf{m}\times\left(\mathbf{m}\times\mathbf{H}_{\text{eff}}\right)-\alpha\frac{d\mathbf{m}}{dt} - \left|\gamma\right|\beta\mathbf{J}\left(\mathbf{m}\times\mathbf{M}\right)
+\end{equation}
+
+When this is substituded into the LLGS equation, it takes on the explicit form:
+\begin{equation}
+    \begin{aligned}
+        \frac{d\mathbf{m}}{dt} & = \frac{-\left|\gamma\right|}{1+\alpha^2}\mathbf{m}\times\mathbf{H}_{\text{eff}} - \frac{\alpha\left|\gamma\right|}{1+\alpha^2}\mathbf{m}\times\left(\mathbf{m}\times\mathbf{H}_{\text{eff}}\right) \\[1ex]
+        & + \frac{\left|\gamma\right|\beta\mathbf{J}}{1+\alpha^2}\mathbf{m}\times\left(\mathbf{m}\times\mathbf{M}\right) - \frac{\alpha\left|\gamma\right|\beta\mathbf{J}}{1+\alpha^2}\mathbf{m}\times\mathbf{M}
+    \end{aligned}
+\end{equation}
+The full derivation can be found in \autoref{equ:LLGS_explicit_derivation}.
+
+\subsection{Projecting the Explicit Form onto the $\left\{\mathbf{m}, \hat{\mathbf{e}}_{\theta}, \hat{\mathbf{e}}_{\phi}\right\}$ Basis}
+To transform the explicit three-dimensional vector LLGS equation into a closed two-dimensional system of scalar differential equations, the vector fields must be projected onto the orthonormal basis $\{\mathbf{m}, \hat{\mathbf{e}}_{\theta}, \hat{\mathbf{e}}_{\phi}\}$.
+Using the dimensionless time variable $\tau=\frac{\gamma}{1+\alpha^2}t$ the explicit form can be denoted as:
+\begin{equation}
+    \frac{d \mathbf{m}}{d \tau} = - \mathbf{m}\times\mathbf{H}_{\text{eff}} - \alpha\mathbf{m}\times\left(\mathbf{m}\times\mathbf{H}_{\text{eff}}\right)+\beta\mathbf{J}\mathbf{m}\times\left(\mathbf{m}\times\mathbf{M}\right)-\alpha\beta\mathbf{J}\mathbf{m}\times\mathbf{M}
+\end{equation}
+
+\subsubsection{Projecting $\mathbf{H}_{\text{eff}}$ onto $\left\{\mathbf{m}, \hat{\mathbf{e}}_{\theta}, \hat{\mathbf{e}}_{\phi}\right\}$}
+The effective field strength $\mathbf{H}_{\text{eff}}$ can be projected unto the basis $\left\{\mathbf{m}, \hat{\mathbf{e}}_{\theta}, \hat{\mathbf{e}}_{\phi}\right\}$ as:
+\begin{equation}
+    \mathbf{H}_{\text{eff}} = \text{H}_{\mathbf{m}}\mathbf{m} + \text{H}_{\theta}\hat{\mathbf{e}}_{\theta} + \text{H}_{\phi}\hat{\mathbf{e}}_{\phi}
+\end{equation}
+Where the field components derived in \autoref{equ:fieldcomponents} are:
+\begin{equation}
+    \begin{aligned}
+        \text{H}_{\mathbf{m}} & = \text{H}_{\text{a}}\sin(\theta)\cos(\phi) + \text{H}_{\text{k}}\sin^2(\theta)\cos^2(\phi) \\
+        & - \text{H}_{\text{dz}}\cos^2(\theta) \\[1ex]
+        \text{H}_{\theta} & = \text{H}_{\text{a}}\cos(\theta)\cos(\phi) + \text{H}_{\text{k}}\sin(\theta)\cos(\theta)\cos^2(\phi) \\ 
+        & + \text{H}_{\text{dz}}\cos(\theta)\sin(\theta) \\[1ex]
+        \text{H}_{\phi} & = -\text{H}_{\text{a}}\sin(\phi) - \text{H}_{\text{k}}\sin(\theta)\sin(\phi)\cos(\phi)
+    \end{aligned}
+\end{equation}
+Using the identities:
+\begin{equation}
+    \begin{aligned}
+        \mathbf{m}\times\mathbf{m} & = 0 \\[1ex]
+        \mathbf{m}\times\hat{\mathbf{e}}_{\theta} & = \hat{\mathbf{e}}_{\phi} \\[1ex]
+        \mathbf{m}\times\hat{\mathbf{e}}_{\phi} & = -\hat{\mathbf{e}}_{\theta}
+    \end{aligned}
+    \label{equ:mthetaphi_identities}
+\end{equation}
+We can find:
+\begin{equation}
+    \mathbf{m}\times\mathbf{H}_{\text{eff}}=-\text{H}_{\phi}\hat{\mathbf{e}}_{\theta}+\text{H}_{\theta}\hat{\mathbf{e}}_{\phi}
+\end{equation}
+And:
+\begin{equation}
+    \mathbf{m}\times\left(\mathbf{m}\times\mathbf{H}_{\text{eff}}\right)=-\text{H}_{\theta}\hat{\mathbf{e}}_{\theta}-\text{H}_{\phi}\hat{\mathbf{e}}_{\phi}
+\end{equation}
+
+\subsubsection{Projecting $\mathbf{M}$ onto $\left\{\mathbf{m}, \hat{\mathbf{e}}_{\theta}, \hat{\mathbf{e}}_{\phi}\right\}$}
+For the magnetization in the fixed layer we take $\mathbf{M}=-\hat{\mathbf{e}}_{\text{x}}$, which can be expressed in the polar basis as:
+\begin{equation}
+    \mathbf{M} = -\sin(\theta)\cos(\phi)\mathbf{m} -\cos(\theta)\cos(\phi)\hat{\mathbf{e}}_{\theta} + \sin(\phi)\hat{\mathbf{e}}_{\phi}
+\end{equation}
+Again using the identities in \autoref{equ:mthetaphi_identities} we can find:
+\begin{equation}
+    \mathbf{m}\times\mathbf{M} = -\sin(\phi)\hat{\mathbf{e}}_{\theta} - \cos(\theta)\cos(\phi)\hat{\mathbf{e}}_{\phi}
+\end{equation}
+And:
+\begin{equation}
+    \mathbf{m}\times\left(\mathbf{m}\times\mathbf{M}\right) = \cos(\theta)\cos(\phi)\hat{\mathbf{e}}_{\theta} - \sin(\phi)\hat{\mathbf{e}}_{\phi}
+\end{equation}
+
+\subsection{Final Projection}
+Now all the components to project the full LLGS equation into the form of \autoref{equ:angular_form} are ready, this results in:
+\begin{equation}
+    \begin{aligned}
+        \frac{d\mathbf{m}}{d\tau} & = \left(\right)
+    \end{aligned}
+\end{equation}
+
+% ===================================================================
+% ---------- Numerical Results and Discussion ----------
+% ===================================================================
+\section{Numerical Results and Discussion}
+
+% ===================================================================
+% ---------- Conclusion ----------
+% ===================================================================
+\section{Conclusion}
+
+% ===================================================================
+% ---------- Bibliography ----------
+% ===================================================================
+\clearpage
+\bibliographystyle{apsrev4-2}
+\bibliography{bibliography}
+
+% ===================================================================
+% ---------- Appendix ----------
+% ===================================================================
+\clearpage
+\appendix
+\begin{widetext}
+\section{Mathematical Derivations}
+\begin{equation}
+    \begin{aligned}
+        \hat{\mathbf{e}}_{\theta} & = \frac{\frac{\partial \mathbf{m}}{\partial \theta}}{\left|\frac{\partial \mathbf{m}}{\partial \theta}\right|} 
+        = \frac{\begin{pmatrix} \frac{\partial}{\partial \theta} \sin(\theta)\cos(\phi) \\ \frac{\partial}{\partial \theta} \sin(\theta)\sin(\phi) \\ \frac{\partial}{\partial \theta} \cos(\theta) \end{pmatrix}}{\left|\begin{pmatrix} \frac{\partial}{\partial \theta} \sin(\theta)\cos(\phi) \\ \frac{\partial}{\partial \theta} \sin(\theta)\sin(\phi) \\ \frac{\partial}{\partial \theta} \cos(\theta) \end{pmatrix}\right|} 
+        = \frac{\begin{pmatrix} \cos(\theta)\cos(\phi) \\ \cos(\theta)\sin(\phi) \\ -\sin(\theta) \end{pmatrix}}{\left|\begin{pmatrix} \cos(\theta)\cos(\phi) \\ \cos(\theta)\sin(\phi) \\ -\sin(\theta) \end{pmatrix}\right|}
+        = \frac{\begin{pmatrix} \cos(\theta)\cos(\phi) \\ \cos(\theta)\sin(\phi) \\ -\sin(\theta) \end{pmatrix}}{\sqrt{\left(\cos(\theta)\cos(\phi)\right)^2 + \left(\cos(\theta)\sin(\phi)\right)^2+\left(-\sin(\theta)\right)^2}} \\[1ex]
+        & = \frac{\begin{pmatrix} \cos(\theta)\cos(\phi) \\ \cos(\theta)\sin(\phi) \\ -\sin(\theta) \end{pmatrix}}{\sqrt{\left(\cos^2(\theta)\left(\cos^2(\phi) + \sin^2(\phi)\right)\right) + \sin^2(\theta)}}
+        = \frac{\begin{pmatrix} \cos(\theta)\cos(\phi) \\ \cos(\theta)\sin(\phi) \\ -\sin(\theta) \end{pmatrix}}{\sqrt{\cos^2(\theta)+\sin^2(\theta)}}
+        = \begin{pmatrix} \cos(\theta)\cos(\phi) \\ \cos(\theta)\sin(\phi) \\ -\sin(\theta) \end{pmatrix}
+    \end{aligned}
+    \label{equ:etheta}
+\end{equation}
+
+\begin{equation}
+    \begin{aligned}
+        \hat{\mathbf{e}}_{\phi} &= \frac{\frac{\partial \mathbf{m}}{\partial \phi}}{\left|\frac{\partial \mathbf{m}}{\partial \phi}\right|}
+        = \frac{\begin{pmatrix} \frac{\partial}{\partial \phi} \sin(\theta)\cos(\phi) \\ \frac{\partial}{\partial \phi} \sin(\theta)\sin(\phi) \\ \frac{\partial}{\partial \phi} \cos(\theta) \end{pmatrix}}{\left|\begin{pmatrix} \frac{\partial}{\partial \phi} \sin(\theta)\cos(\phi) \\ \frac{\partial}{\partial \phi} \sin(\theta)\sin(\phi) \\ \frac{\partial}{\partial \phi} \cos(\theta) \end{pmatrix}\right|} 
+        = \frac{\begin{pmatrix} -\sin(\theta)\sin(\phi) \\ \sin(\theta)\cos(\phi) \\ 0 \end{pmatrix}}{\left|\begin{pmatrix} -\sin(\theta)\sin(\phi) \\ \sin(\theta)\cos(\phi) \\ 0 \end{pmatrix}\right|}
+        = \frac{\begin{pmatrix} -\sin(\theta)\sin(\phi) \\ \sin(\theta)\cos(\phi) \\ 0 \end{pmatrix}}{\sqrt{\left(-\sin(\theta)\sin(\phi)\right)^2 + \left(\sin(\theta)\cos(\phi)\right)^2 + \left(0\right)^2}} \\[1ex]
+        & = \frac{\begin{pmatrix} -\sin(\theta)\sin(\phi) \\ \sin(\theta)\cos(\phi) \\ 0 \end{pmatrix}}{\sqrt{\sin^2(\theta)\left(\sin^2(\phi) + \cos^2(\phi)\right)}}
+        = \frac{\begin{pmatrix} -\sin(\theta)\sin(\phi) \\ \sin(\theta)\cos(\phi) \\ 0 \end{pmatrix}}{\sqrt{\sin^2(\theta)}}
+        = \frac{1}{\sin(\theta)} \begin{pmatrix} -\sin(\theta)\sin(\phi) \\ \sin(\theta)\cos(\phi) \\ 0 \end{pmatrix}
+        = \begin{pmatrix} -\sin(\phi) \\ \cos(\phi) \\ 0 \end{pmatrix}
+    \end{aligned}
+    \label{equ:ephi}
+\end{equation}
+
+\begin{equation}
+    \begin{aligned}
+        \frac{d\mathbf{m}}{d t} & = \frac{\partial \mathbf{m}}{\partial \theta}\frac{d\theta}{dt} + \frac{\partial \mathbf{m}}{\partial \phi}\frac{d\phi}{dt}
+        = \begin{pmatrix} \cos(\theta)\cos(\phi) \\ \cos(\theta)\sin(\phi) \\ -\sin(\theta) \end{pmatrix} \frac{d \theta}{d t} + \begin{pmatrix} -\sin(\theta)\sin(\phi) \\ \sin(\theta)\cos(\phi) \\ 0 \end{pmatrix} \frac{d \phi}{d t}
+        = \hat{\mathbf{e}}_{\theta} \frac{d \theta}{d t} + \sin(\theta) \begin{pmatrix} -\sin(\phi) \\ \cos(\phi) \\ 0 \end{pmatrix} \frac{d \phi}{d t} \\[1ex]
+        & = \hat{\mathbf{e}}_{\theta} \frac{d \theta}{d t} + \sin(\theta) \hat{\mathbf{e}}_{\phi} \frac{d \phi}{d t}
+        = \frac{d \theta}{d t} \hat{\mathbf{e}}_{\theta} + \frac{d \phi}{d t} \sin(\theta) \hat{\mathbf{e}}_{\phi}
+        = \dot{\theta}\hat{\mathbf{e}}_{\theta} + \dot{\phi}\sin\theta\hat{\mathbf{e}}_{\phi}
+    \end{aligned}
+    \label{equ:dm/dt}
+\end{equation}
+
+\begin{equation}
+    \begin{aligned}
+        \mathbf{m}\times\frac{d \mathbf{m}}{d t} & = \mathbf{m}\times\left(-\left|\gamma\right|\mathbf{m} \times \mathbf{H}_{\text{eff}}\right) + \mathbf{m}\times\left(\alpha \mathbf{m} \times \frac{d\mathbf{m}}{dt}\right) + \mathbf{m}\times\left(\left|\gamma\right|\beta \mathbf{J} \left[ \mathbf{m} \times \left(\mathbf{m}\times\mathbf{M}\right) \right]\right) \\[1ex]
+        & = -\left|\gamma\right|\mathbf{m}\times\left(\mathbf{m} \times \mathbf{H}_{\text{eff}}\right) + \alpha \mathbf{m}\times\left( \mathbf{m} \times \frac{d\mathbf{m}}{dt}\right) + \left|\gamma\right|\beta \mathbf{J} \mathbf{m}\times\left[ \mathbf{m} \times \left(\mathbf{m}\times\mathbf{M}\right) \right] \\[1ex]
+        & \qquad \text{Using the identity:} \mathbf{A}\times\left(\mathbf{B}\times\mathbf{C}\right) = \mathbf{B}\left(\mathbf{A}\cdot\mathbf{C}\right) - \mathbf{C}\left(\mathbf{A}\cdot\mathbf{B}\right) \\[1ex]
+        & = -\left|\gamma\right|\mathbf{m}\times\left(\mathbf{m} \times \mathbf{H}_{\text{eff}}\right) - \alpha \frac{d \mathbf{m}}{d t} - \left|\gamma\right|\beta \mathbf{J}\left(\mathbf{m}\times\mathbf{M}\right)
+    \end{aligned}
+    \label{equ:mxdm/dt}
+\end{equation}
+
+\begin{equation}
+    \begin{aligned}
+        \frac{d \mathbf{m}}{d t} & = -\left|\gamma\right|\mathbf{m} \times \mathbf{H}_{\text{eff}} + \alpha\left(-\left|\gamma\right|\mathbf{m}\times\left(\mathbf{m} \times \mathbf{H}_{\text{eff}}\right) - \alpha \frac{d \mathbf{m}}{d t} - \left|\gamma\right|\beta \mathbf{J}\left(\mathbf{m}\times\mathbf{M}\right)\right) + \left|\gamma\right|\beta \mathbf{J} \left[ \mathbf{m} \times \left(\mathbf{m}\times\mathbf{M}\right) \right] \\[1ex]
+        & = -\left|\gamma\right|\mathbf{m}\times\mathbf{H}_{\text{eff}} - \alpha\left|\gamma\right|\mathbf{m}\times\left(\mathbf{m}\times\mathbf{H}_{\text{eff}}\right) - \alpha^2\frac{d \mathbf{m}}{d t} + \left|\gamma\right|\beta\mathbf{J}\mathbf{m}\times\left(\mathbf{m}\times\mathbf{M}\right) - \alpha\left|\gamma\right|\beta\mathbf{J}\mathbf{m}\times\left(\mathbf{m}\times\mathbf{M}\right) \\[1ex]
+        \frac{d \mathbf{m}}{d t}  + \alpha^2\frac{d \mathbf{m}}{d t} & = -\left|\gamma\right|\mathbf{m}\times\mathbf{H}_{\text{eff}} - \alpha\left|\gamma\right|\mathbf{m}\times\left(\mathbf{m}\times\mathbf{H}_{\text{eff}}\right) + \left|\gamma\right|\beta\mathbf{J}\mathbf{m}\times\left(\mathbf{m}\times\mathbf{M}\right) - \alpha\left|\gamma\right|\beta\mathbf{J}\mathbf{m}\times\left(\mathbf{m}\times\mathbf{M}\right) \\[1ex]
+        (1 + \alpha^2)\frac{d \mathbf{m}}{d t} & = -\left|\gamma\right|\mathbf{m}\times\mathbf{H}_{\text{eff}} - \alpha\left|\gamma\right|\mathbf{m}\times\left(\mathbf{m}\times\mathbf{H}_{\text{eff}}\right) + \left|\gamma\right|\beta\mathbf{J}\mathbf{m}\times\left(\mathbf{m}\times\mathbf{M}\right) - \alpha\left|\gamma\right|\beta\mathbf{J}\mathbf{m}\times\left(\mathbf{m}\times\mathbf{M}\right) \\[1ex]
+        \frac{d \mathbf{m}}{d t} & = \frac{-\left|\gamma\right|}{1+\alpha^2}\mathbf{m}\times\mathbf{H}_{\text{eff}} - \frac{\alpha\left|\gamma\right|}{1+\alpha^2}\mathbf{m}\times\left(\mathbf{m}\times\mathbf{H}_{\text{eff}}\right) + \frac{\left|\gamma\right|\beta\mathbf{J}}{1+\alpha^2}\mathbf{m}\times\left(\mathbf{m}\times\mathbf{M}\right) - \frac{\alpha\left|\gamma\right|\beta\mathbf{J}}{1+\alpha^2}\mathbf{m}\times\mathbf{M}
+    \end{aligned}
+    \label{equ:LLGS_explicit_derivation}
+\end{equation}
+
+\begin{equation}
+    \begin{aligned}
+        \text{H}_{\mathbf{m}} & = \mathbf{H}_{\text{eff}} \cdot \mathbf{m} = \left(\text{H}_{\text{a}}\hat{\mathbf{e}}_{\text{x}}+\text{H}_{\text{k}}\text{m}_{\text{x}}\hat{\mathbf{e}}_{\text{x}}-\text{H}_{\text{dz}}\text{m}_{\text{z}}\hat{\mathbf{e}}_{\text{z}}\right) \cdot \left(\sin(\theta)\cos(\phi)\hat{\mathbf{e}}_{\text{x}} + \sin(\theta)\sin(\phi)\hat{\mathbf{e}}_{\text{y}} + \cos(\theta)\hat{\mathbf{e}}_{\text{z}}\right) \\[1ex]
+        & = \left(\text{H}_{\text{a}}+\text{H}_{\text{k}}\sin(\theta)\cos(\phi)\right)\sin(\theta)\cos(\phi)-\text{H}_{\text{dz}}\cos^2(\theta) \\[1ex]
+        & = \text{H}_{\text{a}}\sin(\theta)\cos(\phi)+\text{H}_{\text{k}}\sin^2(\theta)\cos^2(\phi)-\text{H}_{\text{dz}}\cos^2(\theta) \\[2ex]
+        \text{H}_{\theta} & = \mathbf{H}_{\text{eff}} \cdot \hat{\mathbf{e}}_{\theta} = \left(\text{H}_{\text{a}}\hat{\mathbf{e}}_{\text{x}}+\text{H}_{\text{k}}\text{m}_{\text{x}}\hat{\mathbf{e}}_{\text{x}}-\text{H}_{\text{dz}}\text{m}_{\text{z}}\hat{\mathbf{e}}_{\text{z}}\right) \cdot \left(\cos(\theta)\cos(\phi)\hat{\mathbf{e}}_{\text{x}}+\cos(\theta)\sin(\phi)\hat{\mathbf{e}}_{\text{y}}-\sin(\theta)\hat{\mathbf{e}}_{\text{z}}\right) \\[1ex]
+        & = \left(\text{H}_{\text{a}}+\text{H}_{\text{k}}\sin(\theta)\cos(\phi)\right)\cos(\theta)\cos(\phi)+\text{H}_{\text{dz}}\sin(\theta)\cos(\theta) \\[1ex]
+        & = \text{H}_{\text{a}}\cos(\theta)\cos(\phi)+\text{H}_{\text{k}}\sin(\theta)\cos(\theta)\cos^2(\phi)+\text{H}_{\text{dz}}\sin(\theta)\cos(\theta) \\[2ex]
+        \text{H}_{\phi} & = \mathbf{H}_{\text{eff}} \cdot \hat{\mathbf{e}}_{\phi} = \left(\text{H}_{\text{a}}\hat{\mathbf{e}}_{\text{x}}+\text{H}_{\text{k}}\text{m}_{\text{x}}\hat{\mathbf{e}}_{\text{x}}-\text{H}_{\text{dz}}\text{m}_{\text{z}}\hat{\mathbf{e}}_{\text{z}}\right) \cdot \left(-\sin(\phi)\hat{\mathbf{e}}_{\text{x}}+\cos(\phi)\hat{\mathbf{e}}_{\text{y}}\right) \\[1ex]
+        & = \left(\text{H}_{\text{a}} + \text{H}_{\text{k}}\sin(\theta)\cos(\phi)\right)\left(-\sin(\phi)\right) \\[1ex]
+        & = -\text{H}_{\text{a}}\sin(\phi) - \text{H}_{\text{k}}\sin(\theta)\sin(\phi)\cos(\phi)
+    \end{aligned}
+    \label{equ:fieldcomponents}
+\end{equation}
+
+\begin{equation}
+    \begin{aligned}
+        \frac{d\mathbf{m}}{d\tau} & =- \mathbf{m}\times\mathbf{H}_{\text{eff}} - \alpha\mathbf{m}\times\left(\mathbf{m}\times\mathbf{H}_{\text{eff}}\right) + \beta\mathbf{J}\mathbf{m}\times\left(\mathbf{m}\times\mathbf{M}\right)-\alpha\beta\mathbf{J}\mathbf{m}\times\mathbf{M} \\[1ex]
+        & = \text{H}_{\phi}\hat{\mathbf{e}}_{\theta} - \text{H}_{\theta}\hat{\mathbf{e}}_{\phi} + \alpha\text{H}_{\theta}\hat{\mathbf{e}}_{\theta} + \alpha\text{H}_{\phi}\hat{\mathbf{e}}_{\phi} - \beta\mathbf{J}\sin(\phi)\hat{\mathbf{e}}_{\phi} + \beta\mathbf{J}\cos(\theta)\cos(\phi)\hat{\mathbf{e}}_{\theta} + \alpha\beta\mathbf{J}\sin(\phi)\hat{\mathbf{e}}_{\theta} + \alpha\beta\mathbf{J}\cos(\theta)\cos(\phi)\hat{\mathbf{e}}_{\phi} \\[1ex]
+        & = \left(\text{H}_{\phi} + \alpha\text{H}_{\theta} + \beta\mathbf{J}\cos(\theta)\cos(\phi) + \alpha\beta\mathbf{J}\sin(\phi)\right)\hat{\mathbf{e}}_{\theta} + \left(- \text{H}_{\theta} + \alpha\text{H}_{\phi} - \beta\mathbf{J}\sin(\phi) + \alpha\beta\mathbf{J}\cos(\theta)\cos(\phi)\right)\hat{\mathbf{e}}_{\phi} \\[1ex]
+        & = (-\text{H}_{\text{a}}\sin(\phi) - \text{H}_{\text{k}}\sin(\theta)\sin(\phi)\cos(\phi) + \alpha\text{H}_{\text{a}}\cos(\theta)\cos(\phi) + \alpha\text{H}_{\text{k}}\sin(\theta)\cos(\theta)\cos^2(\phi) \\[1ex] 
+        & + \text{H}_{\text{dz}}\cos(\theta)\sin(\theta) + \beta\mathbf{J}\cos(\theta)\cos(\phi) + \alpha\beta\mathbf{J}\sin(\phi))\hat{\mathbf{e}}_{\theta} \\[1ex]
+        & + (-\text{H}_{\text{a}}\cos(\theta)\cos(\phi) - \text{H}_{\text{k}}\sin(\theta)\cos(\theta)\cos^2(\phi) -\text{H}_{\text{dz}}\cos(\theta)\sin(\theta) - \alpha\text{H}_{\text{a}}\sin(\phi) - \alpha\text{H}_{\text{k}}\sin(\theta)\sin(\phi)\cos(\phi) \\[1ex]
+        & - \beta\mathbf{J}\sin(\phi) + \alpha\beta\mathbf{J}\cos(\theta)\cos(\phi))\hat{\mathbf{e}}_{\phi} \\[1ex]
+        & = (\left(\alpha\text{H}_{\text{a}}+\beta\mathbf{J}\right)\cos(\theta)\cos(\phi) + \alpha\left(\text{H}_{\text{dz}}+\text{H}_{\text{k}}\cos^2(\phi)\right)\sin(\theta)\cos(\theta) \\[1ex]
+        & + \left(-\text{H}_{\text{a}}+\alpha\beta\mathbf{J}\right)\sin(\phi)-\text{H}_{\text{k}}\sin(\theta)\sin(\phi)\cos(\phi))\hat{\mathbf{e}}_{\theta} \\[1ex]
+        & + (-\left(\alpha\text{H}_{\text{a}}+\beta\mathbf{J}\right)\sin(\phi) - \left(\text{H}_{\text{dz}}+\text{H}_{\text{k}}\cos^2{\phi}\right)\cos(\theta)\sin(\theta) \\[1ex]
+        & + \left(-\text{H}_{\text{a}}+\alpha\beta\mathbf{J}\right)\cos(\theta)\cos(\phi) - \alpha\text{H}_{\text{k}}\sin(\theta)\sin(\phi)\cos(\phi))\hat{\mathbf{e}}_{\phi}
+    \end{aligned}
+\end{equation}
+\end{widetext}
+
+\end{document}
